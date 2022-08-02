@@ -1,0 +1,638 @@
+<!DOCTYPE html>
+<!-- saved from url=(0014)about:internet -->
+<html lang="en-US"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><script type="text/javascript" async="" src="./SVG - Polygon_files/publishertag.prebid.js.download"></script>
+<title>SVG - Polygon</title>
+
+<meta name="description" content="SVG - Polygon,  &lt;polygon&gt;  element is used to draw a closed shape consisting of connected straight lines.">
+<link rel="canonical" href="https://www.tutorialspoint.com/svg/svg_polygon.htm">
+<link rel="shortcut icon" href="https://www.tutorialspoint.com/favicon.ico" type="image/x-icon">
+<meta name="viewport" content="width=device-width,initial-scale=1.0,user-scalable=yes">
+<link rel="preconnect" href="https://fonts.googleapis.com/">
+<link rel="preconnect" href="https://fonts.gstatic.com/" crossorigin="">
+<link rel="stylesheet" href="./SVG - Polygon_files/css2">
+<link id="style-switch" rel="stylesheet" href="./SVG - Polygon_files/style-min.css">
+<link rel="stylesheet" href="./SVG - Polygon_files/custom.css">
+<style>.navbar-expand-xl .navbar-brand .navbar-brand-item, .h-100px, ul.toc li.heading, .light-mode-item, .dark-mode-item, .back-top, a.demo, .home-intro-sub{background:#ff9900; color:#fff;}  ul.toc li.heading:hover{background:#ff9900;} .btn-grey-border{background:#ff9900; color:#fff; border:1px solid #ff9900;} .course-box{background:#ff9900;} 
+</style>
+<script src="./SVG - Polygon_files/rules-p-54Nt-1NAaEEe0.js.download" async=""></script><script src="./SVG - Polygon_files/quant.js.download" async="" type="text/javascript"></script><script type="text/javascript" async="" src="./SVG - Polygon_files/analytics.js.download"></script><script type="text/javascript" async="" src="./SVG - Polygon_files/js"></script><script id="adp1" data-cfasync="false">(function(w, d) { var s = d.createElement('script'); s.src = '//cdn.adpushup.com/40046/adpushup.js'; s.type = 'text/javascript'; s.async = true; (d.getElementsByTagName('head')[0] || d.getElementsByTagName('body')[0]).appendChild(s); })(window, document);</script><script src="./SVG - Polygon_files/adpushup.js.download" type="text/javascript" async=""></script>
+<script id="adp2" data-cfasync="false">(function(w, d) {var s = d.createElement('script'); s.src = '//delivery.adrecover.com/18107/adRecover.js'; s.type = 'text/javascript'; s.async = true; (d.getElementsByTagName('head')[0] || d.getElementsByTagName('body')[0]).appendChild(s); })(window, document);</script><script src="./SVG - Polygon_files/adRecover.js.download" type="text/javascript" async=""></script>
+<link rel="stylesheet" type="text/css" href="./SVG - Polygon_files/prettify.css"><script type="text/javascript" async="" src="./SVG - Polygon_files/jquery-2.2.2.min.js.download"></script><script type="text/javascript" async="" src="./SVG - Polygon_files/jquery-3.6.0.min.js.download"></script><script type="text/javascript" async="" src="./SVG - Polygon_files/pb.40046.1655463344348.js.download"></script><script type="text/javascript" async="" src="./SVG - Polygon_files/quantcast.js.download"></script><script type="text/javascript">(function () {
+	window._apPbJs = window._apPbJs || {};
+	window._apPbJs.que = window._apPbJs.que || [];
+	var enabledBidders = window.adpushup.utils.getQueryParams().enabledBidders;
+	if (enabledBidders) {
+		window.enabledBiddersArray = enabledBidders.split(',');
+		window.adpushup.utils.log(window.enabledBiddersArray);
+		window._apPbJs.que.push(function () {
+			window._apPbJs.onEvent('beforeRequestBids', function (adunits) {
+				var filteredAdUnits = [];
+				for (var i = 0; i < adunits.length; i++) {
+					var bidders = [];
+					var adUnit = adunits[i];
+					var adUnitBids = adUnit.bids;
+					for (var j = 0; j < adUnitBids.length; j++) {
+						if (window.enabledBiddersArray.indexOf(adUnitBids[j].bidder) !== -1) {
+							bidders.push(adUnitBids[j]);
+						}
+					}
+					adUnit.bids = bidders;
+					filteredAdUnits.push(adUnit);
+				}
+				adunits = filteredAdUnits;
+			});
+		});
+	}
+})();
+// send bid logging - bidder, cpm and ttl
+(function () {
+	window._apPbJs = window._apPbJs || { que: [] };
+
+	function sendBidLog() {
+		window.adpushup.utils.sendDataToLoggerService = function sendDataToLoggerService(
+			event,
+			payload
+		) {
+			var endPoint = 'https://aplogger.adpushup.com/log?pxRes=false';
+			var strigifiedDataBeacon = JSON.stringify({ event, data: payload });
+
+			if (strigifiedDataBeacon === '{}') {
+				strigifiedDataBeacon = JSON.stringify(
+					payload,
+					Object.getOwnPropertyNames({ event, data: payload })
+				);
+			}
+
+			if (typeof window.navigator.sendBeacon === 'function') {
+				window.navigator.sendBeacon(endPoint, strigifiedDataBeacon);
+			} else {
+				var strigifiedDataImagePixel = JSON.stringify(payload);
+				if (strigifiedDataImagePixel === '{}') {
+					strigifiedDataImagePixel = JSON.stringify(
+						payload,
+						Object.getOwnPropertyNames({ data: payload })
+					);
+				}
+
+				var img = document.createElement('img');
+				img.src = endPoint + '&event=' + event + '&data=' + window.btoa(strigifiedDataImagePixel);
+			}
+		};
+		window._apPbJs.onEvent('auctionEnd', function (data) {
+			var bidsReceived = data.bidsReceived;
+
+			// if there is no bid, then do not send the log
+			if (!bidsReceived.length) return;
+
+			var bids = [];
+			for (var i = 0; i < bidsReceived.length; i++) {
+				bids.push({
+					bidder: bidsReceived[i].bidder,
+					ttl: bidsReceived[i].ttl,
+					originalCpm: bidsReceived[i].originalCpm
+				});
+			}
+
+			var config = window.adpushup.config;
+			var finalObj = {
+				bids: bids,
+				browser: config.browser,
+				country: config.country,
+				platform: config.platform,
+				siteId: config.siteId
+			};
+
+			window.adpushup.utils.sendDataToLoggerService('TTL_CPM_bidder', finalObj);
+		});
+	}
+
+	window._apPbJs.que.push(sendBidLog);
+})();
+// send bid logging - bidder, cpm and ttl
+
+// Glimpse Starts
+(function () {
+    if(window.location.pathname != "/jupyter/index.htm") return;
+    
+	var scriptTag = document.createElement('script');
+	var linkPreviewUrl =
+		'https://cdn.adpushup.com/' + adpushup.config.siteId + '/linkPreview.js';
+	scriptTag.src = linkPreviewUrl;
+	document.body.append(scriptTag);
+})();
+// Glimpse Ends</script><script src="./SVG - Polygon_files/gpt.js.download" async=""></script><script async="" src="./SVG - Polygon_files/apstag.js.download"></script><script type="text/javascript">(function($){ 
+ var $els = $('div[id^="STICKY"]');
+    $els.each(function(i,$el){
+        var span = $('<span style="cursor:pointer; position: absolute; top: -20px; right: 0; background: rgba(255,255,255,0.3); color: #000; padding: 0 5px;"> Close</span>');
+        $($el).append(span);
+        span.on('click',function(){
+            $(this).parents('.adp_interactive_ad').remove();
+        })
+    })
+ })(adpushup.$)</script><meta http-equiv="origin-trial" content="AzoawhTRDevLR66Y6MROu167EDncFPBvcKOaQispTo9ouEt5LvcBjnRFqiAByRT+2cDHG1Yj4dXwpLeIhc98/gIAAACFeyJvcmlnaW4iOiJodHRwczovL2RvdWJsZWNsaWNrLm5ldDo0NDMiLCJmZWF0dXJlIjoiUHJpdmFjeVNhbmRib3hBZHNBUElzIiwiZXhwaXJ5IjoxNjYxMjk5MTk5LCJpc1N1YmRvbWFpbiI6dHJ1ZSwiaXNUaGlyZFBhcnR5Ijp0cnVlfQ=="><meta http-equiv="origin-trial" content="A6+nc62kbJgC46ypOwRsNW6RkDn2x7tgRh0wp7jb3DtFF7oEhu1hhm4rdZHZ6zXvnKZLlYcBlQUImC4d3kKihAcAAACLeyJvcmlnaW4iOiJodHRwczovL2dvb2dsZXN5bmRpY2F0aW9uLmNvbTo0NDMiLCJmZWF0dXJlIjoiUHJpdmFjeVNhbmRib3hBZHNBUElzIiwiZXhwaXJ5IjoxNjYxMjk5MTk5LCJpc1N1YmRvbWFpbiI6dHJ1ZSwiaXNUaGlyZFBhcnR5Ijp0cnVlfQ=="><meta http-equiv="origin-trial" content="A/9La288e7MDEU2ifusFnMg1C2Ij6uoa/Z/ylwJIXSsWfK37oESIPbxbt4IU86OGqDEPnNVruUiMjfKo65H/CQwAAACLeyJvcmlnaW4iOiJodHRwczovL2dvb2dsZXRhZ3NlcnZpY2VzLmNvbTo0NDMiLCJmZWF0dXJlIjoiUHJpdmFjeVNhbmRib3hBZHNBUElzIiwiZXhwaXJ5IjoxNjYxMjk5MTk5LCJpc1N1YmRvbWFpbiI6dHJ1ZSwiaXNUaGlyZFBhcnR5Ijp0cnVlfQ=="><script src="./SVG - Polygon_files/pubads_impl_2022072702.js.download" async=""></script><link rel="preload" href="./SVG - Polygon_files/f.txt" as="script"><script type="text/javascript" src="./SVG - Polygon_files/f.txt"></script><link rel="preload" href="./SVG - Polygon_files/f(1).txt" as="script"><script type="text/javascript" src="./SVG - Polygon_files/f(1).txt"></script><link rel="preload" href="./SVG - Polygon_files/f.txt" as="script"><script type="text/javascript" src="./SVG - Polygon_files/f.txt"></script><link rel="preload" href="./SVG - Polygon_files/f(1).txt" as="script"><script type="text/javascript" src="./SVG - Polygon_files/f(1).txt"></script><link rel="preload" href="./SVG - Polygon_files/f.txt" as="script"><script type="text/javascript" src="./SVG - Polygon_files/f.txt"></script><link rel="preload" href="./SVG - Polygon_files/f(1).txt" as="script"><script type="text/javascript" src="./SVG - Polygon_files/f(1).txt"></script><link rel="preload" href="./SVG - Polygon_files/f.txt" as="script"><script type="text/javascript" src="./SVG - Polygon_files/f.txt"></script><link rel="preload" href="./SVG - Polygon_files/f(1).txt" as="script"><script type="text/javascript" src="./SVG - Polygon_files/f(1).txt"></script><link rel="preload" href="./SVG - Polygon_files/f.txt" as="script"><script type="text/javascript" src="./SVG - Polygon_files/f.txt"></script><link rel="preload" href="./SVG - Polygon_files/f(1).txt" as="script"><script type="text/javascript" src="./SVG - Polygon_files/f(1).txt"></script><link rel="preload" href="./SVG - Polygon_files/f.txt" as="script"><script type="text/javascript" src="./SVG - Polygon_files/f.txt"></script><link rel="preload" href="./SVG - Polygon_files/f(1).txt" as="script"><script type="text/javascript" src="./SVG - Polygon_files/f(1).txt"></script><link rel="preload" href="./SVG - Polygon_files/f.txt" as="script"><script type="text/javascript" src="./SVG - Polygon_files/f.txt"></script><link rel="preload" href="./SVG - Polygon_files/f(1).txt" as="script"><script type="text/javascript" src="./SVG - Polygon_files/f(1).txt"></script></head>
+<body>
+<div class="navbar-top navbar-dark d-xl-block py-2 mx-2 mx-md-4 rounded-bottom-4">
+	<div class="container-fluid px-3 px-xl-0">
+		<div class="d-lg-flex justify-content-lg-between align-items-center top-nav-links">
+			<ul class="nav align-items-center justify-content-center">
+				<li class="nav-item" data-bs-toggle="tooltip" data-bs-animation="false" data-bs-placement="bottom" data-bs-original-title="Home Page">
+					<a class="nav-link" href="https://www.tutorialspoint.com/index.htm"><i class="fal fa-home-alt me-1"></i> Home</a>
+				</li>
+				<li class="nav-item" data-bs-toggle="tooltip" data-bs-animation="false" data-bs-placement="bottom" data-bs-original-title="Online Coding System">
+					<a class="nav-link" href="https://www.tutorialspoint.com/codingground.htm"><i class="fal fa-code me-1"></i> Coding Ground</a>
+				</li>
+				<li class="nav-item" data-bs-toggle="tooltip" data-bs-animation="false" data-bs-placement="bottom" data-bs-original-title="Job Openings">
+					<span><a class="nav-link" href="https://www.tutorialspoint.com/about/about_careers.htm"><i class="fal fa-suitcase me-1"></i> Jobs</a></span>
+				</li>
+				<li class="nav-item" data-bs-toggle="tooltip" data-bs-animation="false" data-bs-placement="bottom" data-bs-original-title="Digital Whiteboard">
+					<span><a class="nav-link" href="https://www.tutorialspoint.com/whiteboard.htm"><i class="fal fa-chalkboard me-1"></i> Whiteboard</a></span>
+				</li>
+				<li class="nav-item" data-bs-toggle="tooltip" data-bs-animation="false" data-bs-placement="bottom" data-bs-original-title="Developer&#39;s Tools">
+					<span><a class="nav-link" href="https://www.tutorialspoint.com/online_dev_tools.htm"><i class="fal fa-tools me-1"></i> Tools</a></span>
+				</li>
+				<li class="nav-item" data-bs-toggle="tooltip" data-bs-animation="false" data-bs-placement="bottom" data-bs-original-title="Corporate Trainings">
+					<span><a class="nav-link" href="https://www.tutorialspoint.com/business/index.asp"><i class="fal fa-analytics me-1"></i> Business</a></span>
+				</li>
+			</ul>
+			<!-- Navbar top Right-->
+			<div class="d-flex align-items-center justify-content-center">
+				<div class="navbar-nav ms-2">
+				  <div class="modeswitch-wrap" id="darkModeSwitch">
+					 <div class="modeswitch-item">
+						<div class="modeswitch-icon">
+							<i class="fal fa-sun toggle-sun"></i>
+							<i class="fal fa-moon toggle-moon"></i>
+						</div>
+					 </div>
+				  </div>
+				</div>
+				<div class="me-3c top-nav-social">
+				  <a class="nav-link" href="https://www.tutorialspoint.com/market/teach_with_us.jsp" target="_self" data-bs-toggle="tooltip" data-bs-animation="false" data-bs-placement="bottom" data-bs-original-title="Teach with us"><i class="fal fa-users-class me-2"></i> <span>Teach with us</span></a>
+				</div>
+				<ul class="list-unstyled d-flex mb-0 top-nav-social">
+					<li><a class="px-2 nav-link" rel="nofollow" href="https://www.facebook.com/tutorialspointindia" target="_blank" data-bs-toggle="tooltip" data-bs-animation="false" data-bs-placement="bottom" data-bs-original-title="Tutorialspoint Facebook"><i class="fab fa-facebook"></i></a> </li>
+					<li><a class="px-2 nav-link" rel="nofollow" href="https://www.instagram.com/tutorialspoint_/" target="_blank" data-bs-toggle="tooltip" data-bs-animation="false" data-bs-placement="bottom" data-bs-original-title="Tutorialspoint Instagram"><i class="fab fa-instagram"></i></a> </li>
+					<li><a class="px-2 nav-link" rel="nofollow" href="https://twitter.com/tutorialspoint" target="_blank" data-bs-toggle="tooltip" data-bs-animation="false" data-bs-placement="bottom" data-bs-original-title="Tutorialspoint Twitter"><i class="fab fa-twitter"></i></a> </li>
+					<li><a class="px-2 nav-link" rel="nofollow" href="https://www.youtube.com/channel/UCVLbzhxVTiTLiVKeGV7WEBg" target="_blank" data-bs-toggle="tooltip" data-bs-animation="false" data-bs-placement="bottom" data-bs-original-title="Tutorialspoint Youtube"><i class="fab fa-youtube"></i></a> </li>
+					<li><a class="px-2 nav-link" rel="nofollow" href="https://www.linkedin.com/authwall?trk=bf&amp;trkInfo=AQEkqX2eckF__gAAAX-wMwEYvrsjBVbEtWQd4pgEdVSzkL22Nik1KEpY_ECWLKDGc41z8IOZWr2Bb0fvJplT60NPBtSw87J6QCpc7wD4qQ3iU13n6xJtBxME5o05Wmpg5JPm5YY=&amp;originalReferer=&amp;sessionRedirect=https%3A%2F%2Fwww.linkedin.com%2Fcompany%2Ftutorialspoint" target="_blank" data-bs-toggle="tooltip" data-bs-animation="false" data-bs-placement="bottom" data-bs-original-title="Tutorialspoint LinkedIn"><i class="fab fa-linkedin-in"></i></a> </li>
+				</ul>
+			</div>
+		</div>
+	</div>
+</div>
+
+<header class="navbar-light navbar-sticky header-static navbar-sticky-on">
+	<nav class="navbar navbar-expand-xl">
+		<div class="container-fluid px-3 px-xl-4">
+			<a class="navbar-brand" href="https://www.tutorialspoint.com/index.htm"><img class="light-mode-item navbar-brand-item" src="./SVG - Polygon_files/logo-color.png" alt="logo"> <img class="dark-mode-item navbar-brand-item" src="./SVG - Polygon_files/logo-color-b.png" alt="logo"></a>
+			<button class="navbar-toggler-toc collapsed ms-auto-toc" type="button" id="btn-tutorial-toc">
+                        <span><i class="fal fa-th-list"></i></span>
+			</button>
+			<button class="navbar-toggler ms-auto" type="button" id="btn-menu-collapse">
+				<span class="navbar-toggler-animation">
+					<span></span>
+					<span></span>
+					<span></span>
+				</span>
+			</button>
+			<div class="navbar-collapse w-100 collapse" id="navbarCollapse">
+				<ul class="navbar-nav navbar-nav-scroll me-auto">
+					<li class="nav-item nav-xs-login">
+						<a class="nav-link" href="https://www.tutorialspoint.com/svg/svg_polygon.htm#"><i class="fal fa-sign-in-alt me-2"></i>Login</a>
+					</li>
+					<li class="nav-item dropdown dropdown-menu-shadow-stacked">
+						<a class="nav-link" id="categoryMenu" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+							<i class="fal fa-th-list fs-5 me-xl-1 d-xl-none"></i>
+							<i class="fal fa-th me-1 d-none d-xl-inline-block"></i>
+							<span class="d-xl-inline-block">Category <i class="fal fa-angle-down"></i></span>
+						</a>
+												<ul class="dropdown-menu categories-menu shadow" id="categories-menu" style="display: none;">
+							<li><a href="https://www.tutorialspoint.com/academic_tutorials.htm" class="dropdown-item"><i class="fal fa-angle-right"></i> Academic Tutorials</a></li>
+							<li><a href="https://www.tutorialspoint.com/big_data_tutorials.htm" class="dropdown-item"><i class="fal fa-angle-right"></i> Big Data &amp; Analytics </a></li>
+							<li><a href="https://www.tutorialspoint.com/computer_programming_tutorials.htm" class="dropdown-item"><i class="fal fa-angle-right"></i> Computer Programming </a></li>
+							<li><a href="https://www.tutorialspoint.com/computer_science_tutorials.htm" class="dropdown-item"><i class="fal fa-angle-right"></i> Computer Science </a></li>
+							<li><a href="https://www.tutorialspoint.com/database_tutorials.htm" class="dropdown-item"><i class="fal fa-angle-right"></i> Databases </a></li>
+							<li><a href="https://www.tutorialspoint.com/devops_tutorials.htm" class="dropdown-item"><i class="fal fa-angle-right"></i> DevOps </a></li>
+							<li><a href="https://www.tutorialspoint.com/digital_marketing_tutorials.htm" class="dropdown-item"><i class="fal fa-angle-right"></i> Digital Marketing </a></li>
+							<li><a href="https://www.tutorialspoint.com/engineering_tutorials.htm" class="dropdown-item"><i class="fal fa-angle-right"></i> Engineering Tutorials </a></li>
+							<li><a href="https://www.tutorialspoint.com/upsc_ias_exams.htm" class="dropdown-item"><i class="fal fa-angle-right"></i> Exams Syllabus </a></li>
+							<li><a href="https://www.tutorialspoint.com/famous_monuments.htm" class="dropdown-item"><i class="fal fa-angle-right"></i> Famous Monuments </a></li>
+							<li><a href="https://www.tutorialspoint.com/gate_exams_tutorials.htm" class="dropdown-item"><i class="fal fa-angle-right"></i> GATE Exams </a></li>
+							<li><a href="https://www.tutorialspoint.com/latest_technologies.htm" class="dropdown-item"><i class="fal fa-angle-right"></i> Latest Technologies </a></li>
+							<li><a href="https://www.tutorialspoint.com/machine_learning_tutorials.htm" class="dropdown-item"><i class="fal fa-angle-right"></i> Machine Learning </a></li>
+							<li><a href="https://www.tutorialspoint.com/mainframe_tutorials.htm" class="dropdown-item"><i class="fal fa-angle-right"></i> Mainframe Development </a></li>
+							<li><a href="https://www.tutorialspoint.com/management_tutorials.htm" class="dropdown-item"><i class="fal fa-angle-right"></i> Management Tutorials </a></li>
+							<li><a href="https://www.tutorialspoint.com/maths_tutorials.htm" class="dropdown-item"><i class="fal fa-angle-right"></i> Mathematics Tutorials</a></li>
+							<li><a href="https://www.tutorialspoint.com/microsoft_technologies_tutorials.htm" class="dropdown-item"><i class="fal fa-angle-right"></i> Microsoft Technologies </a></li>
+							<li><a href="https://www.tutorialspoint.com/misc_tutorials.htm" class="dropdown-item"><i class="fal fa-angle-right"></i> Misc tutorials </a></li>
+							<li><a href="https://www.tutorialspoint.com/mobile_development_tutorials.htm" class="dropdown-item"><i class="fal fa-angle-right"></i> Mobile Development </a></li>
+							<li><a href="https://www.tutorialspoint.com/java_technology_tutorials.htm" class="dropdown-item"><i class="fal fa-angle-right"></i> Java Technologies </a></li>
+							<li><a href="https://www.tutorialspoint.com/python_technologies_tutorials.htm" class="dropdown-item"><i class="fal fa-angle-right"></i> Python Technologies </a></li>
+							<li><a href="https://www.tutorialspoint.com/sap_tutorials.htm" class="dropdown-item"><i class="fal fa-angle-right"></i> SAP Tutorials </a></li>
+							<li><a href="https://www.tutorialspoint.com/scripting_lnaguage_tutorials.htm" class="dropdown-item"><i class="fal fa-angle-right"></i> Programming Scripts </a></li>
+							<li><a href="https://www.tutorialspoint.com/selected_reading.htm" class="dropdown-item"><i class="fal fa-angle-right"></i> Selected Reading </a></li>
+							<li><a href="https://www.tutorialspoint.com/software_quality_tutorials.htm" class="dropdown-item"><i class="fal fa-angle-right"></i> Software Quality </a></li>
+							<li><a href="https://www.tutorialspoint.com/soft_skill_tutorials.htm" class="dropdown-item"><i class="fal fa-angle-right"></i> Soft Skills </a></li>
+							<li><a href="https://www.tutorialspoint.com/telecom_tutorials.htm" class="dropdown-item"><i class="fal fa-angle-right"></i> Telecom Tutorials </a></li>
+							<li><a href="https://www.tutorialspoint.com/upsc_ias_exams.htm" class="dropdown-item"><i class="fal fa-angle-right"></i> UPSC IAS Exams </a></li>
+							<li><a href="https://www.tutorialspoint.com/web_development_tutorials.htm" class="dropdown-item"><i class="fal fa-angle-right"></i> Web Development </a></li>
+							<li><a href="https://www.tutorialspoint.com/sports_tutorials.htm" class="dropdown-item"><i class="fal fa-angle-right"></i> Sports Tutorials </a></li>
+							<li><a href="https://www.tutorialspoint.com/xml_technologies_tutorials.htm" class="dropdown-item"><i class="fal fa-angle-right"></i> XML Technologies </a></li>
+							<li><a href="https://www.tutorialspoint.com/multi_language_tutorials.htm" class="dropdown-item"><i class="fal fa-angle-right"></i> Multi-Language</a></li>
+							<li><a href="https://www.tutorialspoint.com/questions_and_answers.htm" class="dropdown-item"><i class="fal fa-angle-right"></i> Interview Questions</a></li>
+						</ul>
+											</li>
+				</ul>
+				<div class="navbar-collapse">
+					<div class="col-xl-9">
+						<div class="nav my-3 my-xl-0 px-4 flex-nowrap align-items-center">
+							<div class="nav-item w-100">
+								<form class="rounded position-relative">
+									<input class="form-control pe-4 bg-secondary bg-opacity-10 border-0 search-strings" type="search" placeholder="Search tutorials ..." id="search-strings" name="key" data-result="search-results" aria-label="Search">
+									<button type="button" id="btnSearch" class="btn bg-transparent px-2 py-0 position-absolute top-50 end-0 translate-middle-y"><i class="fal fa-search fs-6"></i></button>
+									<div class="search-box search-box-inn" id="search-results" style="display: none;"></div>
+									<div class="clear"></div>
+								</form>
+							</div>
+						</div>
+					</div>
+				</div>
+				<ul class="navbar-nav navbar-nav-scroll">
+					<li class="nav-item">
+						<a class="nav-link" href="https://www.tutorialspoint.com/latest/prime-packs" target="_self"><i class="fal fa-cubes me-1"></i>Prime Packs</a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link" href="https://www.tutorialspoint.com/market/index.asp" target="_self"><i class="fal fa-play-circle me-1"></i>Courses</a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link" href="https://www.tutorialspoint.com/latest/ebooks" target="_self"><i class="fal fa-book-reader me-1"></i>eBooks</a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link" href="https://www.tutorialspoint.com/tutorialslibrary.htm" target="_self"><i class="fal fa-books me-1"></i>Library</a>
+					</li>
+					<li class="nav-item">
+					        <a class="nav-link" href="https://www.tutorialspoint.com/questions/index.php" target="_self"><i class="fal fa-comments-alt me-1"></i> Q/A</a>
+					</li>
+				</ul>
+			</div>
+			<div class="navbar-nav d-lg-inline-block nav-login">
+			   <a href="https://www.tutorialspoint.com/market/login.asp" class="btn btn-grey-border mb-0"><i class="fal fa-sign-in-alt me-2"></i>Login</a>
+			</div>
+		</div>
+	</nav>
+</header><div id="sticky-space" class="active" style="height: 83px;"></div>
+<main class="bg-light pb-4">
+<div class="container-fluid mt-3 px-3 px-xl-3">
+<div class="row g-4">
+<div class="col-sm-12 col-md-4 col-xl-3 ps-0 pe-0 collapse tutorial-toc" id="tocCollapse">
+<div class="card card-body bg-light pt-0">
+<div class="mini-logo">
+<img src="./SVG - Polygon_files/svg-mini-logo.jpg" alt="SVG Tutorial">
+</div>
+<ul class="toc chapters">
+<li class="heading">SVG Tutorial</li>
+<li><a href="https://www.tutorialspoint.com/svg/index.htm">SVG - Home</a></li>
+<li><a href="https://www.tutorialspoint.com/svg/svg_overview.htm">SVG - Overview</a></li>
+<li class="current-chapter"><a href="https://www.tutorialspoint.com/svg/svg_shapes.htm">SVG - Shapes</a></li>
+<li><a href="https://www.tutorialspoint.com/svg/svg_text.htm">SVG - Text</a></li>
+<li><a href="https://www.tutorialspoint.com/svg/svg_stroke.htm">SVG - Stroke</a></li>
+<li><a href="https://www.tutorialspoint.com/svg/svg_filters.htm">SVG - Filters</a></li>
+<li><a href="https://www.tutorialspoint.com/svg/svg_patterns.htm">SVG - Patterns</a></li>
+<li><a href="https://www.tutorialspoint.com/svg/svg_gradients.htm">SVG - Gradients</a></li>
+<li><a href="https://www.tutorialspoint.com/svg/svg_interactivity.htm">SVG - Interactivity</a></li>
+<li><a href="https://www.tutorialspoint.com/svg/svg_linking.htm">SVG - Linking</a></li>
+</ul>
+<ul class="toc chapters">
+<li class="heading">SVG Demo</li>
+<li><a href="https://www.tutorialspoint.com/svg/svg_loader.htm">SVG - Loaders</a></li>
+<li><a href="https://www.tutorialspoint.com/svg/dialog.htm">SVG - Dialog</a></li>
+<li><a href="https://www.tutorialspoint.com/svg/icons.htm">SVG -  Icons</a></li>
+<li><a href="https://www.tutorialspoint.com/svg/clock.htm">SVG -  Clock</a></li>
+<li><a href="https://www.tutorialspoint.com/svg/drag.htm">SVG - Drag</a></li>
+<li><a href="https://www.tutorialspoint.com/svg/keypoint.htm">SVG - Key point</a></li>
+<li><a href="https://www.tutorialspoint.com/svg/maps.htm">SVG - Maps</a></li>
+<li><a href="https://www.tutorialspoint.com/svg/amchart.htm">SVG - amChart </a></li>
+<li><a href="https://www.tutorialspoint.com/svg/graph.htm">SVG - Graph </a></li>
+<li><a href="https://www.tutorialspoint.com/svg/flat.htm">SVG - Flat Surface Shade </a></li>
+<li><a href="https://www.tutorialspoint.com/svg/image.htm">SVG - Image Filter </a></li>
+<li><a href="https://www.tutorialspoint.com/svg/effect.htm">SVG - Text Effects</a></li>
+<li><a href="https://www.tutorialspoint.com/svg/keyframe.htm">SVG - Text With CSS Effects</a></li>
+<li><a href="https://www.tutorialspoint.com/svg/arrow.htm">SVG - Arrow Effects</a></li>
+<li><a href="https://www.tutorialspoint.com/svg/brand.htm">SVG - Brand Effects</a></li>
+<li><a href="https://www.tutorialspoint.com/svg/gooey.htm">SVG - Gooey Effects</a></li>
+<li><a href="https://www.tutorialspoint.com/svg/gradients.htm">SVG - Gradients Effects</a></li>
+<li><a href="https://www.tutorialspoint.com/svg/playful.htm">SVG - Playful Effects</a></li>
+<li><a href="https://www.tutorialspoint.com/svg/scroll.htm">SVG - Scroll Effects</a></li>
+<li><a href="https://www.tutorialspoint.com/svg/slideshow.htm">SVG - Side Show Effects</a></li>
+<li><a href="https://www.tutorialspoint.com/svg/tab.htm">SVG - Tab Effects</a></li>
+<li><a href="https://www.tutorialspoint.com/svg/raphael.htm">SVG - Raphael.js Effects</a></li>
+<li><a href="https://www.tutorialspoint.com/svg/velocity.htm">SVG - Velocity.js Effects</a></li>
+<li><a href="https://www.tutorialspoint.com/svg/walkway.htm">SVG - Walkway.js Effects</a></li>
+<li><a href="https://www.tutorialspoint.com/svg/zpath.htm">SVG - zPath.js Effects</a></li>
+<li><a href="https://www.tutorialspoint.com/svg/vague.htm">SVG - Vague.js Effects</a></li>
+<li><a href="https://www.tutorialspoint.com/svg/transformation.htm">SVG - Transformation Effects</a></li>
+<li><a href="https://www.tutorialspoint.com/svg/fullscreen.htm">SVG - Full Screen Overlay  Effects</a></li>
+<li><a href="https://www.tutorialspoint.com/svg/lazylinepainter.htm">SVG - Lazylinepainter.js Effects</a></li>
+<li><a href="https://www.tutorialspoint.com/svg/game.htm">SVG - Demo Game</a></li>
+<li><a href="https://www.tutorialspoint.com/svg/ad.htm">SVG - Real Time SVG AD</a></li>
+</ul>
+<ul class="toc chapters">
+<li class="heading">SVG Useful Resources</li>
+<li><a href="https://www.tutorialspoint.com/svg/svg_questions_answers.htm">SVG - Questions and Answers</a></li>
+<li><a href="https://www.tutorialspoint.com/svg/svg_quick_guide.htm">SVG - Quick Guide</a></li>
+<li><a href="https://www.tutorialspoint.com/svg/svg_useful_resources.htm">SVG - Useful Resources</a></li>
+<li><a href="https://www.tutorialspoint.com/svg/svg_discussion.htm">SVG - Discussion</a></li>
+</ul>
+<ul class="toc reading">
+<li class="sreading">Selected Reading</li>
+<li><a target="_top" href="https://www.tutorialspoint.com/upsc_ias_exams.htm">UPSC IAS Exams Notes</a></li>
+<li><a target="_top" href="https://www.tutorialspoint.com/developers_best_practices/index.htm">Developer's Best Practices</a></li>
+<li><a target="_top" href="https://www.tutorialspoint.com/questions_and_answers.htm">Questions and Answers</a></li>
+<li><a target="_top" href="https://www.tutorialspoint.com/effective_resume_writing.htm">Effective Resume Writing</a></li>
+<li><a target="_top" href="https://www.tutorialspoint.com/hr_interview_questions/index.htm">HR Interview Questions</a></li>
+<li><a target="_top" href="https://www.tutorialspoint.com/computer_glossary.htm">Computer Glossary</a></li>
+<li><a target="_top" href="https://www.tutorialspoint.com/computer_whoiswho.htm">Who is Who</a></li>
+</ul>
+<div id="stickyparent" class="d-none d-sm-block" style="position: sticky;">
+<div style="height: 250px; width: 300px; top: 2338px;" id="sticky-ad">
+<div id="00000001-e48c61d8-989e-4f32-b15e-83f32cfc3dac" class="_ap_apex_ad" data-section="00000001-e48c61d8-989e-4f32-b15e-83f32cfc3dac" data-orig-id="430c9911-782f-495d-88f9-69f58ca8c9a4" data-render-time="1659463093284" data-ap-network="adpTags" data-refresh-time="1659463153308" data-timeout="558" style="text-align: center; margin: 10px auto; width: 300px; height: 250px; overflow: hidden; display: block;">
+<script>
+var adpushup = adpushup || {};
+adpushup.que = adpushup.que || [];
+adpushup.que.push(function() {
+adpushup.triggerAd("430c9911-782f-495d-88f9-69f58ca8c9a4");
+});
+</script>
+<div id="ADP_40046_300x250_00000001-e48c61d8-989e-4f32-b15e-83f32cfc3dac" style="text-align: center; margin: 0 auto;" data-google-query-id="CLDPnIfeqPkCFbEGBgAdiN8JlA">
+<script type="text/javascript">
+window.adpushup.adpTags.que.push(function(){
+window.adpushup.adpTags.display("ADP_40046_300x250_00000001-e48c61d8-989e-4f32-b15e-83f32cfc3dac");
+});
+</script>
+<div id="google_ads_iframe_/103512698,60931893/21875371528_0__container__" style="border: 0pt none; width: 300px; height: 0px;"></div></div></div>
+</div>
+</div>
+</div>
+</div>
+<!-- Tutorial ToC Ends Here -->
+
+<!-- Tutorial Content Starts Here -->
+<div class="col-sm-12 col-md-8 col-xl-6 rounded-3 tutorial-content" id="mainContent">
+<h1>SVG - Polygon</h1>
+<hr>
+<div id="google-top-ads">
+<div class="top-ad-heading">Advertisements</div>
+<div style="text-align:center" class="google-top-ads">
+<div id="adp_top_ads" style="text-align:center!important;min-height:90px!important"><div id="00000001-58a06531-8b49-47c0-8bf9-7a6cc728a77f" class="_ap_apex_ad" data-section="00000001-58a06531-8b49-47c0-8bf9-7a6cc728a77f" data-orig-id="8014640d-fd34-4b2e-9b1b-cc67234a2325" data-render-time="1659463093286" data-ap-network="adpTags" data-refresh-time="1659463150343" data-timeout="488" style="text-align: center; margin: 10px auto; width: 728px; height: 90px; overflow: hidden; display: block;"><div id="ADP_40046_728x90_00000001-58a06531-8b49-47c0-8bf9-7a6cc728a77f" style="text-align: center; margin: 0 auto;" data-google-query-id="CKKKqYXeqPkCFcqUUQodksIKOw">
+<script type="text/javascript">
+window.adpushup.adpTags.que.push(function(){
+window.adpushup.adpTags.display("ADP_40046_728x90_00000001-58a06531-8b49-47c0-8bf9-7a6cc728a77f");
+});
+</script>
+<div id="google_ads_iframe_/103512698,60931893/21908814956_0__container__" style="border: 0pt none; width: 728px; height: 0px;"></div></div></div></div>
+<script>
+     var adPos = document.getElementById('adp_top_ads');
+     var ad_id_720 = "8014640d-fd34-4b2e-9b1b-cc67234a2325";
+     var ad_id_650 = "2d1bb2c4-eb72-471d-9c80-1bf5514728c1";
+     var ad_id_300 = "75e8929b-e21c-41ad-bca5-5cb2601dc07b";
+     var width = window.innerWidth;
+     var ad_id = ad_id_720;
+     if( width <= 768 ){
+        ad_id =  ad_id_300;
+     }else if( width <= 1435 ){
+        ad_id =  ad_id_650;
+     }
+     adPos.innerHTML = '<div id="' + ad_id + '" class="_ap_apex_ad"></div>';
+     var adpushup = adpushup || {};
+     adpushup.que = adpushup.que || [];
+     adpushup.que.push(function() {
+     adpushup.triggerAd(ad_id);
+     });
+</script>
+</div>
+</div>
+<br>
+<div class="mui-container-fluid button-borders">
+<div class="pre-btn">
+<a href="https://www.tutorialspoint.com/svg/svg_shapes.htm"><i class="fal fa-chevron-circle-left"></i> Previous Page</a>
+</div>
+<div class="nxt-btn">
+<a href="https://www.tutorialspoint.com/svg/svg_shapes.htm">Next Page <i class="fal fa-chevron-circle-right"></i>&nbsp;</a>
+</div>
+</div>
+<div class="clearer"></div>
+<p>&lt;polygon&gt;  element is used to draw a closed shape consisting of connected straight lines.</p>
+<h2>Declaration</h2>
+<p>Following is the syntax declaration of <b>&lt;polygon&gt;</b> element. We've shown main attributes only.</p>
+<pre class="prettyprint notranslate prettyprinted" style=""><span class="tag">&lt;polygon</span><span class="pln">
+   </span><span class="atn">points</span><span class="pun">=</span><span class="atv">"list of points"</span><span class="pln">  </span><span class="tag">&gt;</span><span class="pln"> 
+</span><span class="tag">&lt;/polygon&gt;</span></pre>
+<h2>Attributes</h2>
+<table class="table table-bordered">
+<tbody><tr>
+<th width="10%;">Sr.No.</th>
+<th>Name&amp;Description</th>
+</tr>
+<tr>
+<td>1</td>
+<td><b>points</b> − List of points to make up a polygon.</td></tr>
+</tbody></table>
+<h3>Example</h3>
+<i>testSVG.htm</i>
+<pre class="prettyprint notranslate tryit prettyprinted" style=""><span class="tag">&lt;html&gt;</span><span class="pln">
+   </span><span class="tag">&lt;title&gt;</span><span class="pln">SVG Polygon</span><span class="tag">&lt;/title&gt;</span><span class="pln">
+   </span><span class="tag">&lt;body&gt;</span><span class="pln">
+      
+      </span><span class="tag">&lt;h1&gt;</span><span class="pln">Sample SVG Polygon Image</span><span class="tag">&lt;/h1&gt;</span><span class="pln">
+      
+      </span><span class="tag">&lt;svg</span><span class="pln"> </span><span class="atn">width</span><span class="pun">=</span><span class="atv">"800"</span><span class="pln"> </span><span class="atn">height</span><span class="pun">=</span><span class="atv">"800"</span><span class="tag">&gt;</span><span class="pln">
+         </span><span class="tag">&lt;g&gt;</span><span class="pln">
+            </span><span class="tag">&lt;text</span><span class="pln"> </span><span class="atn">x</span><span class="pun">=</span><span class="atv">"0"</span><span class="pln"> </span><span class="atn">y</span><span class="pun">=</span><span class="atv">"15"</span><span class="pln"> </span><span class="atn">fill</span><span class="pun">=</span><span class="atv">"black"</span><span class="pln"> </span><span class="tag">&gt;</span><span class="pln">Polygon #1: Without opacity.</span><span class="tag">&lt;/text&gt;</span><span class="pln">
+            
+            </span><span class="tag">&lt;polygon</span><span class="pln"> </span><span class="atn">points</span><span class="pun">=</span><span class="atv">"150,75 258,137.5 258,262.5 150,325 42,262.6 42,137.5"</span><span class="pln">
+            </span><span class="atn">stroke</span><span class="pun">=</span><span class="atv">"black"</span><span class="pln"> </span><span class="atn">stroke-width</span><span class="pun">=</span><span class="atv">"3"</span><span class="pln"> </span><span class="atn">fill</span><span class="pun">=</span><span class="atv">"rgb(121,0,121)"</span><span class="tag">&gt;&lt;/polygon&gt;</span><span class="pln">
+         </span><span class="tag">&lt;/g&gt;</span><span class="pln"> 
+      </span><span class="tag">&lt;/svg&gt;</span><span class="pln">
+   
+   </span><span class="tag">&lt;/body&gt;</span><span class="pln">
+</span><span class="tag">&lt;/html&gt;</span></pre>
+<h2>Output</h2>
+<p>Open textSVG.htm in Chrome web browser. You can use Chrome/Firefox/Opera to view SVG image directly without any plugin. Internet Explorer 9  and higher also supports SVG image rendering.</p>
+<iframe onload="resizeFrame(this)" class="result" src="./SVG - Polygon_files/poly.html" height="430px" width="600px" style="visibility: visible; height: 431px;"></iframe>
+<h2>Polygon with opacity</h2>
+<pre class="prettyprint notranslate tryit prettyprinted" style=""><span class="tag">&lt;html&gt;</span><span class="pln">
+   </span><span class="tag">&lt;title&gt;</span><span class="pln">SVG Polygon</span><span class="tag">&lt;/title&gt;</span><span class="pln">
+   </span><span class="tag">&lt;body&gt;</span><span class="pln">
+      </span><span class="tag">&lt;h1&gt;</span><span class="pln">Sample SVG Polygon Image</span><span class="tag">&lt;/h1&gt;</span><span class="pln">
+      
+      </span><span class="tag">&lt;svg</span><span class="pln"> </span><span class="atn">width</span><span class="pun">=</span><span class="atv">"800"</span><span class="pln"> </span><span class="atn">height</span><span class="pun">=</span><span class="atv">"800"</span><span class="tag">&gt;</span><span class="pln"> 
+         </span><span class="tag">&lt;g&gt;</span><span class="pln">
+            </span><span class="tag">&lt;text</span><span class="pln"> </span><span class="atn">x</span><span class="pun">=</span><span class="atv">"0"</span><span class="pln"> </span><span class="atn">y</span><span class="pun">=</span><span class="atv">"15"</span><span class="pln"> </span><span class="atn">fill</span><span class="pun">=</span><span class="atv">"black"</span><span class="pln"> </span><span class="tag">&gt;</span><span class="pln">Polygon #2: With opacity </span><span class="tag">&lt;/text&gt;</span><span class="pln">
+         
+            </span><span class="tag">&lt;polygon</span><span class="pln"> </span><span class="atn">points</span><span class="pun">=</span><span class="atv">"150,75 258,137.5 258,262.5 150,325 42,262.6 42,137.5"</span><span class="pln">
+            </span><span class="atn">style</span><span class="pun">=</span><span class="atv">"</span><span class="pln">fill</span><span class="pun">:</span><span class="pln">rgb</span><span class="pun">(</span><span class="lit">121</span><span class="pun">,</span><span class="lit">0</span><span class="pun">,</span><span class="lit">121</span><span class="pun">);</span><span class="pln">stroke</span><span class="pun">-</span><span class="pln">width</span><span class="pun">:</span><span class="lit">3</span><span class="pun">;</span><span class="pln">
+            stroke</span><span class="pun">:</span><span class="pln">rgb</span><span class="pun">(</span><span class="lit">0</span><span class="pun">,</span><span class="lit">0</span><span class="pun">,</span><span class="lit">0</span><span class="pun">);</span><span class="pln">stroke</span><span class="pun">-</span><span class="pln">opacity</span><span class="pun">:</span><span class="lit">0.5</span><span class="pun">;</span><span class="pln">opacity</span><span class="pun">:</span><span class="lit">0.5</span><span class="atv">"</span><span class="tag">&gt;&lt;/polygon&gt;</span><span class="pln">
+         </span><span class="tag">&lt;/g&gt;</span><span class="pln">
+      </span><span class="tag">&lt;/svg&gt;</span><span class="pln">
+      
+   </span><span class="tag">&lt;/body&gt;</span><span class="pln">
+</span><span class="tag">&lt;/html&gt;</span></pre>
+<h2>Output</h2>
+<p>Open textSVG.htm in Chrome web browser. You can use Chrome/Firefox/Opera to view SVG image directly without any plugin. Internet Explorer 9 and higher also supports SVG image rendering.</p>
+<iframe onload="resizeFrame(this)" class="result" src="./SVG - Polygon_files/poly1.html" height="430px" width="600px" style="visibility: visible; height: 431px;"></iframe>
+<div class="parent-file">svg_shapes.htm</div>
+<div class="d-flex justify-content-between border-bottom border-top py-2" id="bottom_navigation">
+<a href="https://www.tutorialspoint.com/svg/svg_shapes.htm" class="pre-btn"><i class="fal fa-chevron-circle-left"></i> Previous Page</a>
+<a id="print-page" href="https://www.tutorialspoint.com/svg/svg_polygon.htm#" class="pre-btn d-none d-sm-block"><i class="fal fa-print"></i> Print Page</a>
+<a href="https://www.tutorialspoint.com/svg/svg_shapes.htm" class="nxt-btn">Next Page <i class="fal fa-chevron-circle-right"></i>&nbsp;</a>
+</div>
+			<div class="google-bottom-ads" id="google-bottom-ads">
+				<div>Advertisements</div>
+				<div>
+					<div id="adp_bottom_ads"><div id="00000001-1a17823d-6882-46ab-be0b-2a5236243184" class="_ap_apex_ad" data-section="00000001-1a17823d-6882-46ab-be0b-2a5236243184" data-orig-id="4951d1d6-24d4-4a31-afb7-2c22c489eae1" data-render-time="1659463093288" data-ap-network="adpTags" data-refresh-time="1659463153670" data-timeout="581" style="text-align: center; margin: 0px auto; display: block;"><div id="ADP_40046_responsivexresponsive_00000001-1a17823d-6882-46ab-be0b-2a5236243184" style="text-align: center; margin: 0 auto;" data-google-query-id="CLbf44beqPkCFUrN1QodSkYC8Q">
+<script type="text/javascript">
+window.adpushup.adpTags.que.push(function(){
+window.adpushup.adpTags.display("ADP_40046_responsivexresponsive_00000001-1a17823d-6882-46ab-be0b-2a5236243184");
+});
+</script>
+<div id="google_ads_iframe_/103512698,60931893/22614721936_0__container__" style="border: 0pt none; width: 690px; height: 0px;"></div></div></div></div>
+					<script>
+						var adPos = document.getElementById('adp_bottom_ads');
+						var mobile_ad_id = "6d621d7e-9531-4f26-810f-68af67dc6366";
+						var desktop_ad_id = "4951d1d6-24d4-4a31-afb7-2c22c489eae1";
+						var adpushup = adpushup || {};
+						adpushup.que = adpushup.que || [];
+						adpushup.que.push(function() {
+							var ad_id = window.innerWidth <= 768 ? mobile_ad_id : desktop_ad_id;
+							adPos.innerHTML = '<div id="' + ad_id + '" class="_ap_apex_ad"></div>';
+							adpushup.triggerAd(ad_id);
+						});
+					</script>
+				</div>
+			</div>
+		</div>
+	<!-- Tutorial Content Ends Here -->
+
+	<!-- Right Column Starts Here -->
+	<div class="col-sm-6 col-md-3 col-xl-3" id="google-right-ads">
+		<div class="data-sticky">
+			<div class="google-right-ad" style="margin: 0px auto !important;margin-top:5px;min-height:250px!important">
+				<div id="00000001-777fe117-dca8-4e12-a479-486d7791503a" class="_ap_apex_ad" data-section="00000001-777fe117-dca8-4e12-a479-486d7791503a" data-orig-id="f0f6cff6-393d-4170-b63a-d9ff06ca9f25" data-render-time="1659463093289" data-ap-network="adpTags" data-refresh-time="1659463168191" data-timeout="651" style="text-align: center; margin: 10px auto; width: 300px; height: 250px; overflow: hidden; display: block;">
+					<script>
+						if( window.innerWidth > 768 ){
+						   var adpushup = adpushup || {};
+						   adpushup.que = adpushup.que || [];
+						   adpushup.que.push(function() {
+						   adpushup.triggerAd("f0f6cff6-393d-4170-b63a-d9ff06ca9f25");
+						   });
+						}
+					</script>
+				<div id="ADP_40046_300x250_00000001-777fe117-dca8-4e12-a479-486d7791503a" style="text-align: center; margin: 0 auto;" data-google-query-id="CPfthY7eqPkCFc3c1QodBxYBrw">
+<script type="text/javascript">
+window.adpushup.adpTags.que.push(function(){
+window.adpushup.adpTags.display("ADP_40046_300x250_00000001-777fe117-dca8-4e12-a479-486d7791503a");
+});
+</script>
+<div id="google_ads_iframe_/103512698,60931893/21871305451_0__container__" style="border: 0pt none; width: 300px; height: 0px;"></div></div></div>
+			</div>
+			<div class="google-right-ad" style="margin-top:16px;min-height:250px!important">
+				<div id="00000001-448fa29c-be38-4def-adbd-bf517145790a" class="_ap_apex_ad" data-section="00000001-448fa29c-be38-4def-adbd-bf517145790a" data-orig-id="5c0affd5-724a-475c-bfcd-cecbc7660c36" data-render-time="1659463093291" data-ap-network="adpTags" data-refresh-time="1659463153309" data-timeout="560" style="text-align: center; margin: 10px auto; width: 300px; height: 250px; overflow: hidden; display: block;">
+					<script>
+						if( window.innerWidth > 768 ){
+						   var adpushup = adpushup || {};
+						   adpushup.que = adpushup.que || [];
+						   adpushup.que.push(function() {
+						   adpushup.triggerAd("5c0affd5-724a-475c-bfcd-cecbc7660c36");
+						   });
+						}
+					</script>
+				<div id="ADP_40046_300x250_00000001-448fa29c-be38-4def-adbd-bf517145790a" style="text-align: center; margin: 0 auto;" data-google-query-id="CLHPnIfeqPkCFbEGBgAdiN8JlA">
+<script type="text/javascript">
+window.adpushup.adpTags.que.push(function(){
+window.adpushup.adpTags.display("ADP_40046_300x250_00000001-448fa29c-be38-4def-adbd-bf517145790a");
+});
+</script>
+<div id="google_ads_iframe_/103512698,60931893/21871305739_0__container__" style="border: 0pt none; width: 300px; height: 0px;"></div></div></div>
+			</div>
+			<div class="google-right-ad" style="margin-top:16px;margin-bottom:15px;min-height:600px!important">
+				<div id="00000001-91374cf3-094f-44a0-8018-7633c0ae0308" class="_ap_apex_ad" data-section="00000001-91374cf3-094f-44a0-8018-7633c0ae0308" data-orig-id="8f8814c2-d64c-4d26-9cb9-543653c0b48f" data-render-time="1659463093292" data-ap-network="adpTags" data-refresh-time="1659463153309" data-timeout="562" style="text-align: center; margin: 10px auto; width: 300px; height: 600px; overflow: hidden; display: block;">
+					<script>
+						if( window.innerWidth > 768 ){
+						   var adpushup = adpushup || {};
+						   adpushup.que = adpushup.que || [];
+						   adpushup.que.push(function() {
+						   adpushup.triggerAd("8f8814c2-d64c-4d26-9cb9-543653c0b48f");
+						   });
+						}
+					</script>
+				<div id="ADP_40046_300x600_00000001-91374cf3-094f-44a0-8018-7633c0ae0308" style="text-align: center; margin: 0 auto;" data-google-query-id="CLLPnIfeqPkCFbEGBgAdiN8JlA">
+<script type="text/javascript">
+window.adpushup.adpTags.que.push(function(){
+window.adpushup.adpTags.display("ADP_40046_300x600_00000001-91374cf3-094f-44a0-8018-7633c0ae0308");
+});
+</script>
+<div id="google_ads_iframe_/103512698,60931893/21875371402_0__container__" style="border: 0pt none; width: 300px; height: 0px;"></div></div></div>
+			</div>
+			<!-- Right Column Ends Here -->
+		</div>
+	</div>
+</div>
+</div>
+</main>
+
+<footer class="py-3 card navbar-dark border-top" id="footer">
+	<div class="container">
+		<div class="row g-4">
+			<div class="col-lg-12 text-center">
+				<a class="me-0 pb-4" href="https://www.tutorialspoint.com/">
+					<img class="light-mode-item h-100px" src="./SVG - Polygon_files/logo-color-footer.png" alt="Tutorials Point">
+					<img class="dark-mode-item h-100px" src="./SVG - Polygon_files/logo-footer-b.png" alt="Tutorials Point">
+				</a>
+				<ul class="nav justify-content-center py-3 mt-md-0 ">
+					<li class="nav-item"><a class="nav-link fw-bold" href="https://www.tutorialspoint.com/about/index.htm"><i class="fal fa-globe"></i> About us</a></li>
+					<li class="nav-item"><a class="nav-link fw-bold" href="https://www.tutorialspoint.com/about/return_refund_policy.htm"> <i class="fal fa-check"></i> Refund Policy</a></li>
+					<li class="nav-item"><a class="nav-link fw-bold" href="https://www.tutorialspoint.com/about/about_terms_of_use.htm"><i class="fal fa-check"></i> Terms of use</a></li>
+					<li class="nav-item"><a class="nav-link fw-bold" href="https://www.tutorialspoint.com/about/about_privacy.htm"> <i class="fal fa-shield-check"></i> Privacy Policy</a></li>
+					<li class="nav-item"><a class="nav-link fw-bold" href="https://www.tutorialspoint.com/about/faq.htm"><i class="fal fa-question-circle"></i> FAQ's</a></li>
+					<li class="nav-item"><a class="nav-link fw-bold" href="https://www.tutorialspoint.com/about/contact_us.htm"><i class="fal fa-map-marker-alt"></i> Contact</a></li>
+				</ul>
+				<p class="small">© Copyright 2022. All Rights Reserved.</p>
+			</div>
+			<div id="privacy-banner" style="display: inherit;">
+				<div>
+					<p>We make use of cookies to improve our user experience. By using this website, you agree with our Cookies Policy.
+						<a id="banner-accept" href="https://www.tutorialspoint.com/svg/svg_polygon.htm#">Agree</a>
+						<a id="banner-learn" href="https://www.tutorialspoint.com/about/about_cookies.htm" target="_blank">Learn more</a>
+					</p>
+				</div>
+			</div>
+		</div>
+	</div>
+</footer>
+
+<div class="back-top">
+<i class="fal fa-angle-up position-absolute top-50 start-50 translate-middle"></i>
+</div>
+<script src="./SVG - Polygon_files/script-min.js.download"></script>
+<script async="" src="./SVG - Polygon_files/js(1)"></script>
+<script>
+     window.dataLayer = window.dataLayer || [];
+     function gtag(){dataLayer.push(arguments);}
+     gtag('js', new Date());
+     gtag('config', 'UA-232293-6');
+</script><iframe src="./SVG - Polygon_files/container.html" style="visibility: hidden; display: none;"></iframe>
+
+
+<iframe src="./SVG - Polygon_files/syncframe.html" width="0" height="0" frameborder="0" title="Criteo GUM iframe" style="border-width: 0px; margin: 0px; display: none;"></iframe><iframe src="./SVG - Polygon_files/iu3.html" style="display: none;"></iframe><iframe src="./SVG - Polygon_files/aframe.html" width="0" height="0" style="display: none;"></iframe></body><iframe sandbox="allow-scripts allow-same-origin" id="204da1b98a142a52" frameborder="0" allowtransparency="true" marginheight="0" marginwidth="0" width="0" hspace="0" vspace="0" height="0" style="height:0px;width:0px;display:none;" scrolling="no" src="./SVG - Polygon_files/async_usersync.html">
+    </iframe><iframe sandbox="allow-scripts allow-same-origin" id="2050688565171622" frameborder="0" allowtransparency="true" marginheight="0" marginwidth="0" width="0" hspace="0" vspace="0" height="0" style="height:0px;width:0px;display:none;" scrolling="no" src="./SVG - Polygon_files/sync.html">
+    </iframe><iframe sandbox="allow-scripts allow-same-origin" id="2062c46a7e1aa0eb" frameborder="0" allowtransparency="true" marginheight="0" marginwidth="0" width="0" hspace="0" vspace="0" height="0" style="height:0px;width:0px;display:none;" scrolling="no" src="./SVG - Polygon_files/2000970.html">
+    </iframe><iframe sandbox="allow-scripts allow-same-origin" id="207886ff145422b3" frameborder="0" allowtransparency="true" marginheight="0" marginwidth="0" width="0" hspace="0" vspace="0" height="0" style="height:0px;width:0px;display:none;" scrolling="no" src="./SVG - Polygon_files/connectmyusers.html">
+    </iframe><iframe sandbox="allow-scripts allow-same-origin" id="208d77f4ce6ac90e" frameborder="0" allowtransparency="true" marginheight="0" marginwidth="0" width="0" hspace="0" vspace="0" height="0" style="height:0px;width:0px;display:none;" scrolling="no" src="./SVG - Polygon_files/ixmatch.html">
+    </iframe><iframe sandbox="allow-scripts allow-same-origin" id="209a7d961f193e7d" frameborder="0" allowtransparency="true" marginheight="0" marginwidth="0" width="0" hspace="0" vspace="0" height="0" style="height:0px;width:0px;display:none;" scrolling="no" src="./SVG - Polygon_files/beacon.html">
+    </iframe><iframe sandbox="allow-scripts allow-same-origin" id="210acb699b82119a" frameborder="0" allowtransparency="true" marginheight="0" marginwidth="0" width="0" hspace="0" vspace="0" height="0" style="height:0px;width:0px;display:none;" scrolling="no" src="./SVG - Polygon_files/saved_resource.html">
+    </iframe><iframe sandbox="allow-scripts allow-same-origin" id="2114b6fe4800032a" frameborder="0" allowtransparency="true" marginheight="0" marginwidth="0" width="0" hspace="0" vspace="0" height="0" style="height:0px;width:0px;display:none;" scrolling="no" src="./SVG - Polygon_files/pd.html">
+    </iframe><iframe sandbox="allow-scripts allow-same-origin" id="212c310564992b11" frameborder="0" allowtransparency="true" marginheight="0" marginwidth="0" width="0" hspace="0" vspace="0" height="0" style="height:0px;width:0px;display:none;" scrolling="no" src="./SVG - Polygon_files/isyn.html">
+    </iframe><iframe sandbox="allow-scripts allow-same-origin" id="213b749cc7e6c757" frameborder="0" allowtransparency="true" marginheight="0" marginwidth="0" width="0" hspace="0" vspace="0" height="0" style="height:0px;width:0px;display:none;" scrolling="no" src="./SVG - Polygon_files/user_sync.html">
+    </iframe><iframe sandbox="allow-scripts allow-same-origin" id="2146cc3f63134ac" frameborder="0" allowtransparency="true" marginheight="0" marginwidth="0" width="0" hspace="0" vspace="0" height="0" style="height:0px;width:0px;display:none;" scrolling="no" src="./SVG - Polygon_files/sync(7).html">
+    </iframe><iframe sandbox="allow-scripts allow-same-origin" id="21507c1a1b897ec5" frameborder="0" allowtransparency="true" marginheight="0" marginwidth="0" width="0" hspace="0" vspace="0" height="0" style="height:0px;width:0px;display:none;" scrolling="no" src="./SVG - Polygon_files/usync.html">
+    </iframe><iframe sandbox="allow-scripts allow-same-origin" id="2164f71b448e7ac8" frameborder="0" allowtransparency="true" marginheight="0" marginwidth="0" width="0" hspace="0" vspace="0" height="0" style="height:0px;width:0px;display:none;" scrolling="no" src="./SVG - Polygon_files/checksync.html">
+    </iframe></html>
